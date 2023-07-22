@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const userSchema = new Schema(
+const topicSchema = new Schema(
     {
         title: {
             type: String,
@@ -10,8 +10,12 @@ const userSchema = new Schema(
             type: String,
             required: [true, 'le champ "subject" est obligatoire'],
         },
+        status: {
+            type: Boolean,
+            default: false, 
+        }
     },
     { timestamps: true },
 );
 
-module.exports = model('users', userSchema);
+module.exports = model('topics', topicSchema);
