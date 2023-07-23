@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 
 
 const getUsers = async (req, res) => {
@@ -111,7 +112,7 @@ const saveUsers = async (req, res) => {
         }
 
         if (req.body.password !== req.body.confirmedpassword) {
-            return res.json({
+            return res.status(400).json({
                 error: true,
                 type: "error",
                 message: "Le mot de passe et la confirmation doivent etre identiques"
@@ -132,6 +133,25 @@ const saveUsers = async (req, res) => {
         user.email = req.body.email;
         user.password = await bcrypt.hash(req.body.password, 12);
         await user.save()
+
+        // Create a transporter
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'codebinary100@gmail.com',
+                pass: 'ywyjhmffwqisxppq'
+            }
+        });
+
+        const mailOptions = {
+            from: 'codebinary100@gmail.com',
+            to: req.body.email,
+            subject: 'Sending Email using Node.js',
+            text: 'That was easy!'
+        };
+
+        // Send the email
+        await transporter.sendMail(mailOptions);
 
         return res.json({
             error: false,
