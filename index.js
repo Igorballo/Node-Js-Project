@@ -2,11 +2,11 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const PORT = 8080;
 const hostname = '127.0.0.1';
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://IgorBallo:6KbxHQMoxUo1PSHz@testnodecluster.i7pdwgm.mongodb.net/?retryWrites=true&w=majority";
-
 
 
 // Connexion à MongoDB
@@ -19,7 +19,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/test_db")
         process.exit(1); // Arrêter l'application en cas d'erreur de connexion
     });
 
-
+app.use(cors()); // Pour éviter les erreurs cors
 app.use(bodyParser.json()); // Pour gérer les données JSON
 app.use(bodyParser.urlencoded({ extended: true })); // Pour gérer les données de formulaire
 
@@ -35,13 +35,9 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
 });
 
-
 app.listen(PORT, () => {
     console.log(`Listening On http://${hostname}:${PORT}/api`);
 })
-
-
-
 
 
 

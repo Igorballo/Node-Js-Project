@@ -5,7 +5,13 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
+
+function generateRandomPassword(length) {
+    const buffer = crypto.randomBytes(length / 2); // Divide by 2 since each byte generates 2 hex characters
+    return buffer.toString('hex');
+}
 
 const getUsers = async (req, res) => {
     try {
@@ -55,10 +61,17 @@ const getUsersById = async (req, res) => {
 
 const login = async (req, res) => {
     try {
+        if (!req.body.email || !req.body.password) {
+            return res.status(400).json({
+                error: true,
+                type: "error",
+                message: "L'email et le mot de passe sont réquis."
+            });
+        }
         const user = await User.findOne({ email: req.body.email });
 
         if (!user) {
-            return res.status(404).json({
+            return res.status(400).json({
                 error: true,
                 type: "error",
                 message: "Utilisateur ou mot de passe incorrect"
@@ -111,27 +124,13 @@ const saveUsers = async (req, res) => {
             });
         }
 
-        if (req.body.password !== req.body.confirmedpassword) {
-            return res.status(400).json({
-                error: true,
-                type: "error",
-                message: "Le mot de passe et la confirmation doivent etre identiques"
-            }, 500);
-        }
-        if (req.body.password.length < 6) {
-            return res.status(400).json({
-                error: true,
-                type: 'error',
-                message: 'Le mot de passe doit comporter au moins 6 caractères',
-            });
-        }
+        const randomPassword = generateRandomPassword(6);
 
         const user = new User;
-        user.firstname = req.body.firstname;
-        user.lastname = req.body.lastname;
-        user.age = req.body.age;
+        user.username = req.body.username;
         user.email = req.body.email;
-        user.password = await bcrypt.hash(req.body.password, 12);
+        user.avatar = "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+        user.password = await bcrypt.hash(randomPassword, 12);
         await user.save()
 
         // Create a transporter
@@ -144,10 +143,14 @@ const saveUsers = async (req, res) => {
         });
 
         const mailOptions = {
-            from: 'codebinary100@gmail.com',
+            from: 'Wazapou',
             to: req.body.email,
-            subject: 'Sending Email using Node.js',
-            text: 'That was easy!'
+            subject: 'Bienvenue dans la communauté Wazapou!',
+            html: `<p>Cher ${req.body.firstname},</p>
+                    <p>Merci de rejoindre notre communauté !</p>
+                    <p>Voici votre mot de passe pour vous connecter : <strong>${randomPassword}</strong></p>
+                    <p>Cordialement,</p>
+                    <p>L'équipe de Wazapou</p>`
         };
 
         // Send the email

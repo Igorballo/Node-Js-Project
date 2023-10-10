@@ -51,7 +51,7 @@ const getTopicsById = async (req, res) => {
 
 const saveTopics = async (req, res) => {
    try {
-
+      console.log(req.body)
       const topic = new Topic;
       topic.title = req.body.title;
       topic.subject = req.body.subject;
