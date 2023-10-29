@@ -1,23 +1,11 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
-const bodyParser = require('body-parser');
 const cors = require('cors');
-const PORT = 8080;
-const hostname = '127.0.0.1';
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://IgorBallo:6KbxHQMoxUo1PSHz@testnodecluster.i7pdwgm.mongodb.net/?retryWrites=true&w=majority";
-
+const config = require('./config/app.js');
+const bodyParser = require('body-parser');
 
 // Connexion à MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/test_db")
-    .then(() => {
-        console.log('Connexion à MongoDB réussie');
-    })
-    .catch((error) => {
-        console.error('Erreur lors de la connexion à MongoDB :', error);
-        process.exit(1); // Arrêter l'application en cas d'erreur de connexion
-    });
+require("./app/helpers/mongodb")();
 
 app.use(cors()); // Pour éviter les erreurs cors
 app.use(bodyParser.json()); // Pour gérer les données JSON
@@ -35,8 +23,8 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
 });
 
-app.listen(PORT, () => {
-    console.log(`Listening On http://${hostname}:${PORT}/api`);
+app.listen(config.app.port, () => {
+    console.log(`Listening On http://${config.app.host_name}:${config.app.port}/api`);
 })
 
 

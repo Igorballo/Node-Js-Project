@@ -2,9 +2,9 @@ const express = require("express");
 const router = express();
 
 
-const {getProduct, updateProducts, getProductById, deleteProducts, saveProducts} = require('../controllers/productController');
-const {getTopics, getTopicsById, saveTopics} = require('../controllers/topicController');
-const {getUsers, getUsersById, saveUsers, login} = require('../controllers/userController');
+const {getProduct, updateProducts, getProductById, deleteProducts, saveProducts} = require('../app/controllers/productController');
+const {getTopics, getTopicsById, saveTopics} = require('../app/controllers/topicController');
+const {getUsers, getUsersById, saveUsers, login} = require('../app/controllers/userController');
 
 router.get('/', (req, res) => {
     res.send("Home page hit successfully")
