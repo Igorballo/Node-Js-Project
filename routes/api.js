@@ -1,31 +1,30 @@
 const express = require("express");
 const router = express();
 
-
-const {getProduct, updateProducts, getProductById, deleteProducts, saveProducts} = require('../app/controllers/productController');
-const {getTopics, getTopicsById, saveTopics} = require('../app/controllers/topicController');
-const {getUsers, getUsersById, saveUsers, login} = require('../app/controllers/userController');
+const productController = require('../app/controllers/productController');
+const topicController = require('../app/controllers/topicController');
+const userController = require('../app/controllers/userController');
 
 router.get('/', (req, res) => {
     res.send("Home page hit successfully")
 });
 
 //Topics routes
-router.get('/topics', getTopics);
-router.get('/topics/:id', getTopicsById);
-router.post('/topics', saveTopics);
+router.get('/topics', topicController.getTopics);
+router.get('/topics/:id', topicController.getTopicsById);
+router.post('/topics', topicController.saveTopics);
 
 //Product routes
-router.get('/products', getProduct);
-router.get('/products/:id', getProductById);
-router.put('/products/:id', updateProducts);
-router.delete('/products/:id', deleteProducts);
-router.post('/products', saveProducts);
+router.get('/products', productController.getProduct);
+router.get('/products/:id', productController.getProductById);
+router.put('/products/:id', productController.updateProducts);
+router.delete('/products/:id', productController.deleteProducts);
+router.post('/products', productController.saveProducts);
 
 //Users routes
-router.get('/users', getUsers);
-router.get('/users/:id', getUsersById);
-router.post('/auth/register', saveUsers);
-router.post('/auth/login', login);
+router.get('/users', userController.getUsers);
+router.get('/users/:id', userController.getUsersById);
+router.post('/auth/register', userController.saveUsers);
+router.post('/auth/login', userController.login);
 
 module.exports = router

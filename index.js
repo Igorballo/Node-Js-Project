@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // Pour gérer les données 
 // Appel des routes
 app.use('/api', require('./routes/api'));
 
+
 // Gestionnaire d'erreurs générique
 app.use((error, req, res, next) => {
     console.log(error);
@@ -23,8 +24,8 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message, data: data });
 });
 
-app.listen(config.app.port, () => {
-    console.log(`Listening On http://${config.app.host_name}:${config.app.port}/api`);
+app.listen(port = config.app.port, () => {
+    console.log(`Listening On http://${config.app.host_name}:${port}/api`);
 })
 
 

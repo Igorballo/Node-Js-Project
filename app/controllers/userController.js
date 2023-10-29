@@ -1,17 +1,7 @@
-const express = require("express");
-const router = express();
-const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-
-
-function generateRandomPassword(length) {
-    const buffer = crypto.randomBytes(length / 2); // Divide by 2 since each byte generates 2 hex characters
-    return buffer.toString('hex');
-}
+const auth = require('../helpers/auth')
+const email = require('../helpers/email')
 
 const getUsers = async (req, res) => {
     try {
@@ -92,9 +82,8 @@ const login = async (req, res) => {
         const userWithoutPassword = user.toObject();
         delete userWithoutPassword.password;
 
-        // Le mot de passe est valide, générer un jeton d'authentification
-        const token = jwt.sign({ userId: user._id }, 'secret_key', { expiresIn: '1h' });
-
+        // Généreration d'un token d'authentification
+        const token = await auth.generateAuthToken(user);
 
         return res.status(200).json({
             error: false,
@@ -124,7 +113,7 @@ const saveUsers = async (req, res) => {
             });
         }
 
-        const randomPassword = generateRandomPassword(6);
+        const randomPassword = auth.generateRandomPassword(6);
 
         const user = new User;
         user.username = req.body.username;
@@ -133,28 +122,12 @@ const saveUsers = async (req, res) => {
         user.password = await bcrypt.hash(randomPassword, 12);
         await user.save()
 
-        // Create a transporter
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'codebinary100@gmail.com',
-                pass: 'ywyjhmffwqisxppq'
-            }
-        });
-
-        const mailOptions = {
-            from: 'Wazapou',
-            to: req.body.email,
-            subject: 'Bienvenue dans la communauté Wazapou!',
-            html: `<p>Cher ${req.body.firstname},</p>
-                    <p>Merci de rejoindre notre communauté !</p>
-                    <p>Voici votre mot de passe pour vous connecter : <strong>${randomPassword}</strong></p>
-                    <p>Cordialement,</p>
-                    <p>L'équipe de Wazapou</p>`
-        };
-
-        // Send the email
-        await transporter.sendMail(mailOptions);
+        // Send welcome email to user
+        const isSendSuccessfuly = await email.sendWelcomeEmail(user, randomPassword)
+        if(!isSendSuccessfuly) {
+            console.log("une erreur s'est produite aucour de l'envoie d'email")
+            return
+        }
 
         return res.json({
             error: false,
@@ -170,4 +143,4 @@ const saveUsers = async (req, res) => {
         }, 500);
     }
 }
-module.exports = { getUsers, getUsersById, saveUsers, login }
+module.exports = { getUsers, getUsersById, saveUsers, login}
