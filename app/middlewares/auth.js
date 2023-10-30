@@ -4,7 +4,7 @@ module.exports= {
     async verifyToken(req,res,next){
         const authHeader = req.headers['authorization'];
         if (!authHeader) {
-            return res.status(401).json({ error: 'Token is missing, vous n\'etes pas autorisé pour cette action' });
+            return res.status(401).json({ error: 'Token is missing.' });
         }
 
         const token = authHeader.split(' ')[1]; // Pour extraire la partie JWT (après "Bearer ")
