@@ -5,6 +5,8 @@ const productController = require('../app/controllers/productController');
 const topicController = require('../app/controllers/topicController');
 const userController = require('../app/controllers/userController');
 
+const verifyToken = require('../app/middlewares/auth')
+
 router.get('/', (req, res) => {
     res.send("Home page hit successfully")
 });
@@ -15,7 +17,7 @@ router.get('/topics/:id', topicController.getTopicsById);
 router.post('/topics', topicController.saveTopics);
 
 //Product routes
-router.get('/products', productController.getProduct);
+router.get('/products', verifyToken.verifyToken, productController.getProduct);
 router.get('/products/:id', productController.getProductById);
 router.put('/products/:id', productController.updateProducts);
 router.delete('/products/:id', productController.deleteProducts);

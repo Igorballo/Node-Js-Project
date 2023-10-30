@@ -1,12 +1,8 @@
-const express = require("express");
-const router = express();
-const mongoose = require("mongoose");
 const Product = require('../models/product');
 
 const getProduct = async (req, res) => {
     try {
         const products = await Product.find();
-
         return res.json({
             error: false,
             type: "success",
@@ -108,7 +104,6 @@ const updateProducts = async (req, res) => {
 
 const deleteProducts = async (req, res) => {
     try {
-        console.log(req.params.id)
         const product = await Product.findOne({ _id: req.params.id });
         if (!product) {
             res.status(404).json({

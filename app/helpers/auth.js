@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const auth = require('../../config/app')
+const config = require('../../config/app')
 
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
             userId: user._id,
             email: user.email
         }
-        const token = jwt.sign( payload, auth.jwt.jwt_secret , { expiresIn: auth.jwt.jwt_expiresin });
+        const token = jwt.sign( payload, config.jwt.jwt_secret , { expiresIn: config.jwt.jwt_expiresin });
         return token
     },
     generateRandomPassword(length) {
