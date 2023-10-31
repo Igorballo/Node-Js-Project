@@ -12,6 +12,9 @@ router.get('/', (req, res) => {
     res.send("Home page hit successfully")
 });
 
+//File inpit routes
+router.post('/posts/register', topicController.savePost);
+
 //Topics routes
 router.get('/topics', topicController.getTopics);
 router.get('/topics/:id', topicController.getTopicsById);
@@ -24,7 +27,7 @@ router.post('/auth/register', userController.saveUsers);
 router.post('/auth/login', userController.login);
 
 //Product routes avec middleware de vérification du token
-router.use(auth.verifyToken)
+// router.use(auth.verifyToken)
 router.get('/products', productController.getProduct);
 router.get('/products/:id', productController.getProductById);
 router.put('/products/:id', productController.updateProducts);

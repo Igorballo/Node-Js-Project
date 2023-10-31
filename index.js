@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const config = require('./config/app.js');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 // Connexion à MongoDB
 require("./app/helpers/mongodb")();
@@ -10,6 +11,9 @@ require("./app/helpers/mongodb")();
 app.use(cors()); // Pour éviter les erreurs cors
 app.use(bodyParser.json()); // Pour gérer les données JSON
 app.use(bodyParser.urlencoded({ extended: true })); // Pour gérer les données de formulaire
+
+// Configuration de express-fileupload
+app.use(fileUpload());
 
 // Appel des routes
 app.use('/api', require('./routes/api'));

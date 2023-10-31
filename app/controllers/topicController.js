@@ -1,7 +1,22 @@
 const express = require("express");
-const router = express();
-const mongoose = require("mongoose");
 const Topic = require('../models/topic');
+const { uploadFile } = require('../helpers/fileUpload')
+const path = require('path');
+
+const savePost = async (req, res) => {
+   if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send('Aucun fichier n\'a été téléchargé.');
+   }
+   try {
+      const file = req.files.image;
+      const destinationPath = path.resolve(__dirname, '../../storage/images');
+      const uniqueFilename = await uploadFile(file, destinationPath);
+
+      res.send("Fichier téléchargé : " + uniqueFilename);
+   } catch (error) {
+      res.status(500).send('Erreur lors du téléchargement du fichier : ' + error.message);
+   }
+}
 
 const getTopics = async (req, res) => {
    try {
@@ -78,5 +93,7 @@ const saveTopics = async (req, res) => {
       }, 500);
    }
 
+
+
 }
-module.exports = { getTopics, getTopicsById, saveTopics }
+module.exports = { getTopics, getTopicsById, saveTopics, savePost }
