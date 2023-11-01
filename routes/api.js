@@ -31,7 +31,7 @@ router.post('/auth/register', userController.saveUsers);
 router.post('/auth/login', userController.login);
 
 //Product routes avec middleware de vérification du token
-// router.use(auth.verifyToken)
+router.use(auth.verifyToken)
 router.get('/products', productController.getProduct);
 router.get('/products/:id', productController.getProductById);
 router.put('/products/:id', productController.updateProducts);
