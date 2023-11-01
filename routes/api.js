@@ -5,6 +5,7 @@ const router = express.Router();
 const productController = require('../app/controllers/productController');
 const topicController = require('../app/controllers/topicController');
 const userController = require('../app/controllers/userController');
+const companyController = require('../app/controllers/companyController');
 
 const auth = require('../app/middlewares/auth')
 
@@ -14,6 +15,9 @@ router.get('/', (req, res) => {
 
 //File inpit routes
 router.post('/posts/register', topicController.savePost);
+
+//Comapny routes
+router.post('/companies', companyController.saveCompany);
 
 //Topics routes
 router.get('/topics', topicController.getTopics);

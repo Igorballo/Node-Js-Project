@@ -66,34 +66,42 @@ const getTopicsById = async (req, res) => {
 
 const saveTopics = async (req, res) => {
    try {
-      console.log(req.body)
-      const topic = new Topic;
-      topic.title = req.body.title;
-      topic.subject = req.body.subject;
-      topic.status = req.body.status;
-      topic.save()
+      // Crée un nouvel objet Topic avec les données de la requête
+      const topic = new Topic({
+         title: req.body.title,
+         subject: req.body.subject,
+         status: req.body.status === '' ? false : req.body.status,
+      });
 
-      if (req.body.status === '') {
-         topic.status = false;
-      } else {
-         topic.status = true;
+      // Valide l'objet Topic
+      const validationError = topic.validateSync();
+
+      if (validationError) {
+         // S'il y a des erreurs de validation, renvoyez-les en tant que réponse d'erreur
+         return res.status(400).json({
+            error: true,
+            type: "error",
+            message: validationError.errors,
+         });
       }
 
-      return res.json({
+      // Si la validation réussit, enregistrez l'objet Topic dans la base de données
+      const savedTopic = await topic.save();
+
+      return res.status(201).json({
          error: false,
          type: "success",
-         message: "Topic enrégstré avec succès",
-         topic: topic
+         message: "Topic enregistré avec succès",
+         topic: savedTopic,
       });
    } catch (e) {
-      return res.json({
+      // En cas d'erreur inattendue, renvoyez une réponse d'erreur avec le message d'erreur
+      return res.status(500).json({
          error: true,
          type: "error",
-         message: e.toString()
-      }, 500);
+         message: e.toString(),
+      });
    }
-
-
-
 }
+
 module.exports = { getTopics, getTopicsById, saveTopics, savePost }
