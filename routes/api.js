@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-
 const productController = require('../app/controllers/productController');
 const topicController = require('../app/controllers/topicController');
 const userController = require('../app/controllers/userController');
@@ -18,6 +17,7 @@ router.post('/posts/register', topicController.savePost);
 
 //Comapny routes
 router.post('/companies', companyController.saveCompany);
+router.get('/companies', companyController.getCompany);
 
 //Topics routes
 router.get('/topics', topicController.getTopics);

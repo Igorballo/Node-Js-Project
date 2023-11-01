@@ -1,5 +1,5 @@
 const Company = require('../models/company');
-const {validateCompany} = require('../validations/company')
+const {validateCreateCompany, validateUpdateCompany} = require('../validations/company')
 
 const getCompany = async (req, res) => {
     try {
@@ -31,8 +31,7 @@ const saveCompany = async (req, res) => {
         }
 
         // Valide les données de la requête en utilisant la fonction validateCompany
-        const { error, value } = validateCompany(req.body);
-        console.log(value)
+        const { error, value } = validateUpdateCompany(req.body);
         if (error) {
             return res.status(400).json(error.details);
         }

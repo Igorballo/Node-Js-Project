@@ -1,9 +1,10 @@
 const Joi = require('joi');
 
+//
 const validator = (schema) => (payload) =>
     schema.validate(payload, { abortEarly: false})
 
-const CompanySchema = Joi.object({
+const CompanyCreateSchema = Joi.object({
     raison_social: Joi.string()
         .alphanum()
         .min(5)
@@ -36,4 +37,27 @@ const CompanySchema = Joi.object({
         .default(false),
 })
 
-exports.validateCompany = validator(CompanySchema);
+const CompanyUpdateSchema = Joi.object({
+    raison_social: Joi.string()
+        .alphanum()
+        .min(5)
+        .max(30)
+        .required(),
+
+    adress: Joi.string()
+        .required()
+        .alphanum()
+        .min(2)
+        .max(7),
+
+    employe_count: Joi.number()
+        .integer()
+        .min(1)
+        .required(),
+
+    status: Joi.boolean()
+        .default(false),
+})
+
+exports.validateCreateCompany = validator(CompanyCreateSchema);
+exports.validateUpdateCompany = validator(CompanyUpdateSchema);
