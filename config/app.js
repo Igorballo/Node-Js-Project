@@ -3,7 +3,7 @@ require('dotenv').config();
 module.exports = {
     app: {
         port: process.env.APP_PORT || 5000,
-        env: process.env.NODE_ENV || 'development',
+        env: process.env.APP_ENV || 'development',
         app_name: process.env.APP_NAME || 'HfxApp',
         host_name: process.env.HOST_NAME || '127.0.0.1',
     },

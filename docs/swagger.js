@@ -63,17 +63,17 @@ const options = {
                     contents: 'application/json'
                 }
             },
-            securitySchemes: {
-                ApiKeyAuth: {
-                    type: 'apiKey',
-                    in: 'header',
-                    name: 'Authorization',
-                }
-            }
+            // securitySchemes: {
+            //     ApiKeyAuth: {
+            //         type: 'apiKey',
+            //         in: 'header',
+            //         name: 'Authorization',
+            //     }
+            // }
         },
-        security: [{
-            ApiKeyAuth: []
-        }]
+        // security: [{
+        //     ApiKeyAuth: []
+        // }]
     },
     apis: ['./routes/api.js'],
     // apis: ['./app/routes*.js'],
