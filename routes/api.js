@@ -153,6 +153,14 @@ router.get('/', (req, res) => {
  *         "404":
  *           $ref: '#/components/responses/404'
  * */
+
+
+router.get('/igor', (req, res) => {
+    console.log("igor route")
+    return res.send('igor route')
+});
+
+
 //File inpit routes
 router.post('/posts/register', topicController.savePost);
 

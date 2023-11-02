@@ -5,7 +5,7 @@ const init = () => {
     // Connexion à MongoDB
     mongoose.connect(uri)
         .then(() => {
-            console.log('Connexion à MongoDB réussie');
+            console.log('Connexion à MongoDB réussie' + uri);
         })
         .catch((error) => {
             console.error('Erreur lors de la connexion à MongoDB :', error);

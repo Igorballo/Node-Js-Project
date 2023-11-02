@@ -7,6 +7,7 @@ const fileUpload = require('express-fileupload');
 const swaggerjsdoc = require('swagger-jsdoc');
 const swaggerui = require('swagger-ui-express');
 const options = require('./docs/swagger');
+const Product = require('./app/models/product');
 
 
 // Connexion à MongoDB
@@ -23,6 +24,25 @@ app.use(bodyParser.urlencoded({ extended: true })); // Pour gérer les données 
 app.get('/', (req, res) => {
     res.send("Home page hit successfully")
 });
+
+// app.get('/api/products', async (req, res) => {
+//     try {
+//         console.log("igor")
+//         const products = await Product.find().exec(); // Utilisez `await` pour attendre que la requête MongoDB se termine
+//         return res.json({
+//             error: false,
+//             type: "success",
+//             message: "Product retrieved successfully",
+//             products: products
+//         });
+//     } catch (e) {
+//         return res.status(500).json({
+//             error: true,
+//             type: "error",
+//             message: e.toString()
+//         });
+//     }
+// });
 
 // Appel des routes
 app.use('/api', require('./routes/api'));
