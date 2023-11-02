@@ -8,12 +8,7 @@
     }
   ],
   "routes": [
-    {
-      "src": "/api/.*",
-      "dest": "index.js"
-    }
-  ],
-  "env": {
-    "MY_SECRET_KEY": "@my-secret-key"
-  }
+    { "handle": "filesystem" },
+    { "src": "/api/.*", "dest": "index.js" }
+  ]
 }

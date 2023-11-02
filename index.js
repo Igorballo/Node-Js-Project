@@ -20,6 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true })); // Pour gérer les données 
 //     console.log(req.body)
 // })
 
+app.get('/', (req, res) => {
+    res.send("Home page hit successfully")
+});
+
 // Appel des routes
 app.use('/api', require('./routes/api'));
 
