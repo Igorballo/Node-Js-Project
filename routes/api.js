@@ -155,12 +155,6 @@ router.get('/', (req, res) => {
  * */
 
 
-router.get('/igor', (req, res) => {
-    console.log("igor route")
-    return res.send('igor route')
-});
-
-
 //File inpit routes
 router.post('/posts/register', topicController.savePost);
 

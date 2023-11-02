@@ -124,17 +124,22 @@ const saveUsers = async (req, res) => {
 
         // Send welcome email to user
         const isSendSuccessfuly = await email.sendWelcomeEmail(user, randomPassword)
-        if(!isSendSuccessfuly) {
-            console.log("une erreur s'est produite aucour de l'envoie d'email")
-            return
+        if (isSendSuccessfuly.accepted.length > 0) {
+            // Le courrier a été envoyé avec succès
+            return res.json({
+                error: false,
+                type: "success",
+                message: "Utilisateur enregistré avec succès",
+                user: user
+            });
+        } else {
+            console.log("Une erreur s'est produite lors de l'envoi de l'e-mail");
+            return res.json({
+                error: true,
+                type: "error",
+                message: "Une erreur s'est produite lors de l'envoi de l'e-mail"
+            });
         }
-
-        return res.json({
-            error: false,
-            type: "success",
-            message: "Utilisateur enrégstré avec succès",
-            user: user
-        });
     } catch (e) {
         return res.json({
             error: true,

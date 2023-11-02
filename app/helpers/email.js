@@ -13,7 +13,7 @@ module.exports = {
         });
 
         const mailOptions = {
-            from: mail.sendmail.from_email_name,
+            from: mail.sendmail.from_email,
             to: user.email,
             subject: 'Bienvenue dans la communauté Wazapou!',
             html: `<p>Cher ${user.firstname},</p>
