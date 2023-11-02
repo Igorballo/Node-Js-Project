@@ -64,8 +64,43 @@ const getTopicsById = async (req, res) => {
    }
 };
 
+const updateTopics = async (req, res) => {
+   try {
+      const topic = await Topic.findOne({ _id: req.params.id });
+
+      if (!topic) {
+         return res.status(404).json({
+            error: true,
+            type: "error",
+            message: "Topic non trouvé"
+         });
+      }
+
+      // console.log(req.body)
+
+      topic.title = req.body.title
+      topic.subject = req.body.subject
+      topic.status = req.body.status
+      await topic.save()
+
+      return res.status(200).json({
+         error: false,
+         type: "success",
+         message: "Topic récupéré avec succès",
+         topic: topic
+      });
+   } catch (e) {
+      return res.status(500).json({
+         error: true,
+         type: "error",
+         message: e.toString()
+      });
+   }
+};
+
 const saveTopics = async (req, res) => {
    try {
+      console.log(req.body)
       // Crée un nouvel objet Topic avec les données de la requête
       const topic = new Topic({
          title: req.body.title,
@@ -104,4 +139,4 @@ const saveTopics = async (req, res) => {
    }
 }
 
-module.exports = { getTopics, getTopicsById, saveTopics, savePost }
+module.exports = { getTopics, getTopicsById, saveTopics, savePost, updateTopics }

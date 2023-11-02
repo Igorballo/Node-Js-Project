@@ -1,75 +1,82 @@
-/* Swagger configuration */
+
 const options = {
-    openapi: 'OpenAPI 3',   // Enable/Disable OpenAPI. By default is null
-    language: 'en-US',      // Change response language. By default is 'en-US'
-    disableLogs: false,     // Enable/Disable logs. By default is false
-    autoHeaders: false,     // Enable/Disable automatic headers capture. By default is true
-    autoQuery: false,       // Enable/Disable automatic query capture. By default is true
-    autoBody: false         // Enable/Disable automatic body capture. By default is true
-}
-
-const config = require('../config/cloud');
-const swaggerAutogen = require('swagger-autogen')();
-const msg = require('../utils/lang/messages');
-
-const doc = {
-    info: {
-        version: '2.0.0',      // by default: '1.0.0'
-        title: 'CloudAgent Apis',        // by default: 'REST API'
-        description: 'API for Managing queue calls',  // by default: ''
-        contact: {
-            'name': 'API Support',
-            'email': 'rajputankit22@gmail.com'
+    failOnErrors: true, // Whether or not to throw when parsing errors. Defaults to false.
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Node Js API Description',
+            version: '1.0.0',
+            contact: {
+                name: "Dr Hfx",
+                email: "sodballo@gmail.com",
+                url: "ballo.com"
+            },
+            "license": {
+                "name": "Apache 2.0",
+                "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+            },
         },
+        servers: [
+            {
+                url: "http://localhost:8080/api",
+                description: "Developement server"
+            }
+        ],
+        components: {
+            schemas: {
+                Topic: {
+                    type: 'object',
+                    required: ['title', 'subject'],
+                    properties: {
+                        title: {
+                            type: 'string',
+                            description: 'The title of the fucking topic'
+                        },
+                        subject: {
+                            type: 'string',
+                            description: 'The subject of the fucking topic'
+                        },
+                        status: {
+                            type: 'boolean',
+                            description: 'The status of the fucking topic'
+                        }
+                    },
+                    example: {
+                        title: "Christmas day",
+                        subject: "Christmas day is coming soon",
+                        status: true,
+                    }
+                }
+            },
+
+            responses: {
+                400: {
+                    description: 'API key is missing',
+                    contents: 'application/json'
+                },
+                401: {
+                    description: 'Unauthorize error - incorrect API key or incorrect format',
+                    contents: 'application/json'
+                },
+                404: {
+                    description: 'Not found - The topic was not found',
+                    contents: 'application/json'
+                }
+            },
+            securitySchemes: {
+                ApiKeyAuth: {
+                    type: 'apiKey',
+                    in: 'header',
+                    name: 'Authorization',
+                }
+            }
+        },
+        security: [{
+            ApiKeyAuth: []
+        }]
     },
-    host: config.swagger.host,      // by default: 'localhost:3000'
-    basePath: '/',  // by default: '/'
-    schemes: ['http'],   // by default: ['http']
-    consumes: ['application/json'],  // by default: ['application/json']
-    produces: ['application/json'],  // by default: ['application/json']
-    tags: [        // by default: empty Array
-        {
-            name: 'Queue CRUD',         // Tag name
-            description: 'Queue related apis',  // Tag description
-        },
-        {
-            name: 'Health',
-            description: 'Health Check'
-        }
-    ],
-    securityDefinitions: {},  // by default: empty object
-    definitions: {
-        helathResponse: {
-            code: msg.response.CAG001.code,
-            message: msg.response.CAG001.message,
-        },
-        'errorResponse.400': {
-            code: msg.response.CAGE002.code,
-            message: msg.response.CAGE002.message,
-        },
-        'errorResponse.403': {
-            code: msg.response.CAGE001.code,
-            message: msg.response.CAGE001.message,
-        },
-        'errorResponse.404': {
-            "code": "404",
-            "message": "Not found",
-        },
-        'errorResponse.500': {
-            code: msg.response.CAGE003.code,
-            message: msg.response.CAGE003.message,
-        }
-    },          // by default: empty object (Swagger 2.0)
+    apis: ['./routes/api.js'],
+    // apis: ['./app/routes*.js'],
 };
 
-const outputFile = './docs/swagger.json';
-const endpointsFiles = ['./app.js', './controllers/*.js'];
-
-/* NOTE: if you use the express Router, you must pass in the
-   'endpointsFiles' only the root file where the route starts,
-   such as: index.js, app.js, routes.js, ... */
-swaggerAutogen(outputFile, endpointsFiles, doc);
-
-// swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
-//     require('./index.js'); // Your project's root file
-//   });
+module.exports = options
