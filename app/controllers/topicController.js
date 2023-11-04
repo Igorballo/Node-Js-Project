@@ -76,8 +76,6 @@ const updateTopics = async (req, res) => {
          });
       }
 
-      // console.log(req.body)
-
       topic.title = req.body.title
       topic.subject = req.body.subject
       topic.status = req.body.status
@@ -100,7 +98,6 @@ const updateTopics = async (req, res) => {
 
 const saveTopics = async (req, res) => {
    try {
-      console.log(req.body)
       // Crée un nouvel objet Topic avec les données de la requête
       const topic = new Topic({
          title: req.body.title,

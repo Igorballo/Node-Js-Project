@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1699114697020" clover="3.2.0">
+  <project timestamp="1699114697020" name="All files">
+    <metrics statements="74" coveredstatements="35" conditionals="32" coveredconditionals="11" methods="12" coveredmethods="4" elements="118" coveredelements="50" complexity="0" loc="74" ncloc="74" packages="4" files="5" classes="5"/>
+    <package name="app.controllers">
+      <metrics statements="47" coveredstatements="17" conditionals="12" coveredconditionals="2" methods="5" coveredmethods="1"/>
+      <file name="topicController.js" path="C:\Users\Igor\Desktop\Projects\backend\test\app\controllers\topicController.js">
+        <metrics statements="47" coveredstatements="17" conditionals="12" coveredconditionals="2" methods="5" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="71" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="101" count="1" type="stmt"/>
+        <line num="102" count="1" type="stmt"/>
+        <line num="103" count="1" type="stmt"/>
+        <line num="105" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="114" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="116" count="0" type="stmt"/>
+        <line num="124" count="1" type="stmt"/>
+        <line num="126" count="1" type="stmt"/>
+        <line num="134" count="0" type="stmt"/>
+        <line num="142" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.helpers">
+      <metrics statements="21" coveredstatements="12" conditionals="2" coveredconditionals="0" methods="6" coveredmethods="2"/>
+      <file name="fileUpload.js" path="C:\Users\Igor\Desktop\Projects\backend\test\app\helpers\fileUpload.js">
+        <metrics statements="11" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+      </file>
+      <file name="mongodb.js" path="C:\Users\Igor\Desktop\Projects\backend\test\app\helpers\mongodb.js">
+        <metrics statements="10" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.models">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="topic.js" path="C:\Users\Igor\Desktop\Projects\backend\test\app\models\topic.js">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="config">
+      <metrics statements="2" coveredstatements="2" conditionals="18" coveredconditionals="9" methods="0" coveredmethods="0"/>
+      <file name="app.js" path="C:\Users\Igor\Desktop\Projects\backend\test\config\app.js">
+        <metrics statements="2" coveredstatements="2" conditionals="18" coveredconditionals="9" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
